@@ -108,3 +108,22 @@ class Alert(Base):
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     triggered_at = Column(DateTime)
     triggered_price = Column(Float)
+
+
+class Thesis(Base):
+    """A saved investment thesis = a snapshot of the computed research report.
+    The Thesis Monitor recomputes the report later and diffs it against this
+    snapshot - health drops only when the NUMBERS that justified the thesis
+    actually weaken. Pure math, fully explainable."""
+    __tablename__ = "theses"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), index=True, nullable=False)
+    symbol = Column(String(24), index=True, nullable=False)
+    name = Column(String(120))
+    note = Column(String(2000))                 # the user's own words
+    snapshot = Column(String(12000), nullable=False)  # JSON research snapshot
+    last_health = Column(Float)
+    last_changes = Column(String(6000))         # JSON list of diff lines
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    last_checked_at = Column(DateTime)
