@@ -142,8 +142,10 @@ export default function Workspace() {
         )}
 
         <p className="mt-6 text-[11px] text-mist-400/70 leading-relaxed max-w-3xl">
-          SwingLens is a research and education tool. It is not investment advice, and it never
-          executes trades. Verify anything important at the linked sources before acting.
+          SwingLens is a research and education tool — not investment advice, and not a
+          SEBI-registered advisory. The engine shows what the data says with full sourcing;
+          you make the call. It never executes trades. Verify anything important at the
+          linked sources before acting.
         </p>
       </main>
     </div>

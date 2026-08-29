@@ -12,6 +12,10 @@ self-graded against what price actually did, so the engine's public track
 record is always honest.
 
 **Team repo:** https://github.com/lochangowda10/hive-hackathon
+**Hackathon disclosure + judge Q&A:** [HACKATHON.md](HACKATHON.md)
+
+> **Disclaimer:** SwingLens is a research and education tool — not investment
+> advice, and not a SEBI-registered advisory. It never executes trades.
 
 ---
 
@@ -19,16 +23,39 @@ record is always honest.
 
 Retail swing traders in India (and everywhere) face a rigged toolkit:
 
-- **Professional terminals** (Bloomberg, Refinitiv, even ChartIQ-based tools)
-  cost more per month than most retail accounts make.
-- **Free tools** give you a chart and 200 indicators — but zero opinion,
-  zero plan, and zero accountability. The trader still does all analysis
-  by hand, emotionally, inconsistently.
+- **Broker apps** (INDmoney, Groww, Zerodha) have great charts and data —
+  but their business model is order flow. Their incentive is that you
+  *trade more*, not that you *trade better*.
+- **Strategy platforms** (investing.com and peers) lock analysis behind
+  paywalls and never publish whether their "ideas" worked.
+- **Free tools** (Chartink, TradingView free, Screener) give you charts and
+  200 indicators — but zero opinion, zero plan, and zero accountability.
+- **News** arrives as an unstructured dump; the trader must guess which
+  headline is the catalyst behind a move.
 - **"AI stock picker" apps** hallucinate numbers, never show their source,
-  and never admit when they were wrong. There is no track record.
+  and never admit when they were wrong.
 
-Result: retail traders either overpay, under-analyze, or get misled —
-and nobody in the chain is accountable for a single call.
+Result: retail traders stitch together 3–4 apps, overpay, under-analyze,
+or get misled — and nobody in the chain is accountable for a single call.
+
+## The all-in-one answer
+
+SwingLens combines the three things traders pay for or stitch together —
+**without the conflicts of interest:**
+
+1. **Broker-grade charting & portfolio context** — full chart detail, 10
+   chart types, 27 indicators, holdings import, watchlists, alerts —
+   but **deliberately no buy/sell buttons**. We are not a broker; we never
+   profit from your trades. Zero conflict of interest.
+2. **A strategy engine, free** — pivots, zones, breakouts, entry/stop/target
+   plans, universe scanner, and a **published track record** (walk-forward
+   backtest: 53.1% win rate, +0.58R net expectancy over 194 setups — see
+   `HACKATHON.md` and reproduce with `cd backend && python -m scripts.backtest`).
+   The analysis others charge for, with the accountability nobody offers.
+3. **Catalyst-aware news** — a 2-source CONFIRMED gate, per-symbol news wired
+   into the chart, so you see *why* a stock is running, not just that it is.
+
+Technical + portfolio + sentiment analysis. One screen. Free. Accountable.
 
 ## Our answer
 

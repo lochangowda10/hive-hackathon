@@ -157,6 +157,13 @@ export default function Login() {
           >
             {mode === 'login' ? "New here? Create an account" : 'Already registered? Sign in'}
           </button>
+
+          <p className="mt-8 text-[10px] text-mist-400/60 leading-relaxed">
+            SwingLens is a research and education tool — not investment advice, and not a
+            SEBI-registered advisory. The engine shows what the data says with full sourcing;
+            you make the call. It never executes trades. Verify anything important at the
+            linked sources before acting.
+          </p>
         </form>
       </div>
     </div>
