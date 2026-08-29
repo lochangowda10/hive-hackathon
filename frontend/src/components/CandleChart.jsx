@@ -115,6 +115,11 @@ export default function CandleChart({ symbol, analyzeSignal = 0, onAnalysis, wat
     if (!el) return
     const chart = createChart(el, {
       autoSize: true,
+      // Let the PAGE scroll over the chart: the wheel was hijacking page
+      // scroll (felt like "can't scroll up/down" on the chart view).
+      // Zoom still works via pinch, scale-axis drag, and double-click reset.
+      handleScroll: { mouseWheel: false, pressedMouseMove: true, horzTouchDrag: true, vertTouchDrag: false },
+      handleScale: { mouseWheel: false, pinch: true, axisPressedMouseMove: true, axisDoubleClickReset: true },
       layout: {
         background: { color: 'transparent' }, textColor: '#8b9bb4',
         fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 11,

@@ -29,6 +29,9 @@ export default function CommandPalette({ open, onClose, onNavigate, onOpenSymbol
       setQ(''); setResults([]); setIdx(0)
       setTimeout(() => inputRef.current?.focus(), 30)
     }
+    // Lock page scroll while the palette is open (modal hygiene)
+    document.body.style.overflow = open ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
   }, [open])
 
   useEffect(() => {

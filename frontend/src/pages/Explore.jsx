@@ -123,7 +123,7 @@ export default function Explore({ onOpenSymbol }) {
       )}
 
       {/* Full table */}
-      <div className="bg-ink-900 border border-ink-700 rounded-xl overflow-hidden relative">
+      <div className="bg-ink-900 border border-ink-700 rounded-xl overflow-x-auto relative">
         {loading && (
           <div className="absolute inset-0 grid place-items-center bg-ink-900/60 backdrop-blur-[1px] z-10">
             <span className="w-6 h-6 border-2 border-mist-400/30 border-t-brass-400 rounded-full animate-spin" />

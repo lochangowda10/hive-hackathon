@@ -18,6 +18,9 @@ export default function IndicatorDialog({ open, onClose, onAdd, activeIds }) {
     if (open && catalog.length === 0) {
       api.indicatorCatalog().then((d) => setCatalog(d.indicators)).catch(() => {})
     }
+    // Lock page scroll while the dialog is open (modal hygiene)
+    document.body.style.overflow = open ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
   }, [open, catalog.length])
 
   const filtered = useMemo(() => {

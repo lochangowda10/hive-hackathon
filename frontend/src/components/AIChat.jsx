@@ -116,6 +116,12 @@ export default function AIChat({ onAnalyze, onOpenSymbol, context }) {
     return () => window.removeEventListener('keydown', esc)
   }, [])
 
+  // Lock page scroll while chat is fullscreen (modal hygiene)
+  useEffect(() => {
+    document.body.style.overflow = full ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [full])
+
   const newChat = () => { setConvId(null); setMessages([]); setLastScan(null); setShowHistory(false) }
 
   const openConversation = async (id) => {

@@ -125,7 +125,7 @@ export default function Portfolio({ onOpenSymbol, onPortfolio }) {
             )}
           </div>
 
-          <div className="bg-ink-900 border border-ink-700 rounded-xl overflow-hidden">
+          <div className="bg-ink-900 border border-ink-700 rounded-xl overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="text-[10px] uppercase tracking-wider text-mist-400 border-b border-ink-700">
