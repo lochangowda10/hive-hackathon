@@ -9,7 +9,7 @@ from . import config
 from .auth import hash_password
 from .database import Base, SessionLocal, engine
 from .models import User
-from .routers import ai, analysis, auth_routes, indicators, markets, news, portfolio, scan, stocks, tracking
+from .routers import ai, analysis, auth_routes, indicators, markets, news, portfolio, research, scan, stocks, tracking
 
 def _heal_legacy_tables() -> None:
     """Older experiment runs created 'watchlist'/'alerts' with different
@@ -73,6 +73,7 @@ app.include_router(news.router)
 app.include_router(scan.router)
 app.include_router(portfolio.router)
 app.include_router(tracking.router)
+app.include_router(research.router)
 
 
 @app.get("/api/health")
