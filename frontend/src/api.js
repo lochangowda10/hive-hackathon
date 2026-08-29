@@ -97,4 +97,10 @@ export const api = {
       method: 'POST',
       body: { range, interval, indicators },
     }),
+
+  research: (symbol) => request(`/api/research/${encodeURIComponent(symbol)}`),
+  researchFinancials: (symbol) => request(`/api/research/${encodeURIComponent(symbol)}/financials`),
+  discoveryLists: () => request('/api/research/discovery/lists'),
+  discovery: (listId, universe = 'india_large') =>
+    request(`/api/research/discovery/${encodeURIComponent(listId)}?universe=${encodeURIComponent(universe)}`),
 }

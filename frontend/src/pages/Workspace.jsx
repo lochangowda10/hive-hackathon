@@ -10,6 +10,8 @@ import { api } from '../api'
 import Explore from './Explore'
 import Pulse from './Pulse'
 import Portfolio from './Portfolio'
+import Research from './Research'
+import Discovery from './Discovery'
 import SymbolNews from '../components/SymbolNews'
 
 const QUICK_PICKS = ['RELIANCE.NS', 'TATAMOTORS.NS', 'SUZLON.NS', 'AAPL', 'NVDA']
@@ -96,6 +98,8 @@ export default function Workspace() {
             {tab('pulse', 'Pulse')}
             {tab('explore', 'Explore')}
             {tab('chart', 'Chart')}
+            {tab('research', 'Research')}
+            {tab('discover', 'Discover')}
             {tab('portfolio', 'Portfolio')}
           </nav>
 
@@ -122,6 +126,10 @@ export default function Workspace() {
           <Pulse onOpenSymbol={openSymbol} />
         ) : view === 'explore' ? (
           <Explore onOpenSymbol={openSymbol} />
+        ) : view === 'research' ? (
+          <Research symbol={symbol} />
+        ) : view === 'discover' ? (
+          <Discovery onOpenSymbol={(sym) => { setSymbol(sym); setView('research') }} />
         ) : view === 'portfolio' ? (
           <Portfolio onOpenSymbol={openSymbol} onPortfolio={setPortfolioCtx} />
         ) : (
