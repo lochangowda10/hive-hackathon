@@ -99,16 +99,26 @@ export default function Research({ symbol }) {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [saving, setSaving] = useState(false)
+  const [saved, setSaved] = useState(false)
+  const [saveError, setSaveError] = useState('')
 
   useEffect(() => {
     let alive = true
-    setLoading(true); setError(''); setData(null)
+    setLoading(true); setError(''); setData(null); setSaved(false); setSaveError('')
     api.research(symbol)
       .then((d) => alive && setData(d))
       .catch((e) => alive && setError(e.message))
       .finally(() => alive && setLoading(false))
     return () => { alive = false }
   }, [symbol])
+
+  const saveThesis = async () => {
+    setSaving(true); setSaveError('')
+    try { await api.saveThesis(symbol, ''); setSaved(true) }
+    catch (e) { setSaveError(e.message) }
+    finally { setSaving(false) }
+  }
 
   const cs = data?.currency === 'INR' ? '₹' : data?.currency === 'USD' ? '$' : (data?.currency || '')
 
@@ -149,7 +159,16 @@ export default function Research({ symbol }) {
                     {data.verdict}
                   </span>
                 )}
+                <button onClick={saveThesis} disabled={saving || saved}
+                        title="Snapshot today's computed evidence and monitor it over time"
+                        className={`text-xs font-semibold rounded-lg px-3 py-2 transition-colors ${
+                          saved ? 'bg-bull-500/15 text-bull-500 border border-bull-500/40 cursor-default'
+                          : 'bg-ink-800 hover:bg-ink-700 text-mist-200 border border-ink-600'
+                        }`}>
+                  {saved ? '✓ Thesis saved — monitoring' : saving ? 'Saving…' : 'Save Thesis'}
+                </button>
               </div>
+              {saveError && <p className="text-xs text-bear-500 mt-2">{saveError}</p>}
             </div>
 
             {/* fair value */}

@@ -12,6 +12,8 @@ import Pulse from './Pulse'
 import Portfolio from './Portfolio'
 import Research from './Research'
 import Discovery from './Discovery'
+import ThesisMonitor from './Thesis'
+import CommandPalette from '../components/CommandPalette'
 import SymbolNews from '../components/SymbolNews'
 
 const QUICK_PICKS = ['RELIANCE.NS', 'TATAMOTORS.NS', 'SUZLON.NS', 'AAPL', 'NVDA']
@@ -25,6 +27,7 @@ export default function Workspace() {
   const [newsTitles, setNewsTitles] = useState([])
   const [portfolioCtx, setPortfolioCtx] = useState(null)
   const [watchlist, setWatchlist] = useState([])
+  const [paletteOpen, setPaletteOpen] = useState(false)
 
   const loadWatchlist = () => api.watchlist().then((d) => setWatchlist(d.items || [])).catch(() => {})
   // Wrap in a body so the effect returns undefined, not the Promise from
@@ -36,9 +39,14 @@ export default function Workspace() {
     try { await api.toggleWatch(sym, sym); loadWatchlist() } catch { /* offline */ }
   }
 
-  // "/" focuses search from anywhere
+  // "/" focuses search, Ctrl/Cmd+K opens the command palette
   useEffect(() => {
     const onKey = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault()
+        setPaletteOpen((o) => !o)
+        return
+      }
       if (e.key === '/' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) {
         e.preventDefault()
         document.querySelector('#global-search input')?.focus()
@@ -100,11 +108,16 @@ export default function Workspace() {
             {tab('chart', 'Chart')}
             {tab('research', 'Research')}
             {tab('discover', 'Discover')}
+            {tab('thesis', 'Thesis')}
             {tab('portfolio', 'Portfolio')}
           </nav>
 
-          <div id="global-search" className="flex-1 flex justify-center">
+          <div id="global-search" className="flex-1 flex justify-center items-center gap-2">
             <StockSearch onSelect={openSymbol} />
+            <button onClick={() => setPaletteOpen(true)} title="Command palette (Ctrl+K)"
+                    className="hidden md:block text-[10px] text-mist-400 hover:text-mist-200 border border-ink-600 hover:border-ink-500 rounded px-2 py-1.5 transition-colors">
+              ⌘K
+            </button>
           </div>
 
           <div className="flex items-center gap-3 shrink-0">
@@ -128,6 +141,8 @@ export default function Workspace() {
           <Explore onOpenSymbol={openSymbol} />
         ) : view === 'research' ? (
           <Research symbol={symbol} />
+        ) : view === 'thesis' ? (
+          <ThesisMonitor onOpenSymbol={(sym) => { setSymbol(sym); setView('research') }} />
         ) : view === 'discover' ? (
           <Discovery onOpenSymbol={(sym) => { setSymbol(sym); setView('research') }} />
         ) : view === 'portfolio' ? (
@@ -156,6 +171,13 @@ export default function Workspace() {
           linked sources before acting.
         </p>
       </main>
+
+      <CommandPalette
+        open={paletteOpen}
+        onClose={() => setPaletteOpen(false)}
+        onNavigate={(v) => { setView(v); setPaletteOpen(false) }}
+        onOpenSymbol={(sym) => { setSymbol(sym); setView('research'); setPaletteOpen(false) }}
+      />
     </div>
   )
 }

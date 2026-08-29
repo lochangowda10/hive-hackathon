@@ -103,4 +103,9 @@ export const api = {
   discoveryLists: () => request('/api/research/discovery/lists'),
   discovery: (listId, universe = 'india_large') =>
     request(`/api/research/discovery/${encodeURIComponent(listId)}?universe=${encodeURIComponent(universe)}`),
+
+  saveThesis: (symbol, note) => request('/api/thesis', { method: 'POST', body: { symbol, note } }),
+  theses: () => request('/api/thesis'),
+  checkThesis: (id) => request(`/api/thesis/${id}/check`, { method: 'POST' }),
+  deleteThesis: (id) => request(`/api/thesis/${id}`, { method: 'DELETE' }),
 }
