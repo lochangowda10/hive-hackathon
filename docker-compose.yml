@@ -1,0 +1,15 @@
+services:
+  swinglens:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DEMO_MODE=1
+      - SECRET_KEY=${SECRET_KEY:-change-me-for-real-deployments}
+      # Optional cloud AI (Groq free tier) since Ollama isn't in the container:
+      # - LLM_PROVIDER=cloud
+      # - CLOUD_LLM_API_KEY=your_free_groq_key
+    volumes:
+      - swinglens-data:/data
+volumes:
+  swinglens-data:

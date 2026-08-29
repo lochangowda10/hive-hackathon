@@ -1,0 +1,18 @@
+Groww Order History Export
+Generated on,16-07-2026
+
+Stock Name,Type,Quantity,Price,Trade Date
+Suzlon Energy,BUY,100,52.40,03-01-2026
+Suzlon Energy,SELL,100,61.10,28-01-2026
+Tata Motors,BUY,20,780.50,05-01-2026
+Tata Motors,SELL,20,742.00,12-02-2026
+Reliance Industries,BUY,10,1210.00,10-02-2026
+Reliance Industries,SELL,10,1298.00,20-03-2026
+Dixon Technologies,BUY,4,"14,250.00",02-03-2026
+Dixon Technologies,SELL,4,"15,900.00",29-04-2026
+RVNL,BUY,60,365.00,15-03-2026
+RVNL,SELL,60,341.00,02-04-2026
+Tata Steel,BUY,80,142.20,05-04-2026
+Tata Steel,SELL,80,151.80,19-05-2026
+BHEL,BUY,50,410.00,20-05-2026
+BHEL,SELL,50,436.00,05-06-2026
