@@ -359,8 +359,11 @@ def fair_value(f: dict, price: float, growth: dict) -> dict:
 
     vals = list(usable.values())
     dispersion = (statistics.pstdev(vals) / statistics.mean(vals)) if len(vals) > 1 else 0.35
+    agreement = "high" if dispersion < 0.25 else "moderate" if dispersion < 0.45 else "low"
     confidence = round(max(10, min(95,
-        35 + 12 * len(usable) - 60 * dispersion + 0.3 * f["data_quality"])))
+        25 + 10 * len(usable) - 70 * dispersion + 0.35 * f["data_quality"])))
+    # Agreement is a hard ceiling: disagreeing models must not look confident.
+    confidence = min(confidence, {"high": 90, "moderate": 65, "low": 50}[agreement])
 
     out = {
         "available": True,
@@ -379,7 +382,7 @@ def fair_value(f: dict, price: float, growth: dict) -> dict:
             "terminal_growth": "3%",
             "note": "Estimates from reported financials; not analyst consensus.",
         },
-        "model_agreement": "high" if dispersion < 0.25 else "moderate" if dispersion < 0.45 else "low",
+        "model_agreement": agreement,
         "confidence": confidence,
     }
     return out

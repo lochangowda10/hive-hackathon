@@ -47,10 +47,17 @@ CASHFLOW_ITEMS = {
 }
 
 
+def _norm(name: str) -> str:
+    """Provider row names vary ('Total Revenue' vs 'TotalRevenue') —
+    match on a normalized form so both work."""
+    return str(name).lower().replace(" ", "")
+
+
 def _statement(df, items: dict, limit: int = 5) -> list[dict]:
     """Normalize a provider statement into [{period, ...items}] newest-first."""
     if df is None or df.empty:
         return []
+    index_lookup = {_norm(idx): idx for idx in df.index}
     periods: dict[str, dict] = {}
     order: list[str] = []
     for col in list(df.columns)[:limit]:
@@ -61,8 +68,9 @@ def _statement(df, items: dict, limit: int = 5) -> list[dict]:
     for key, names in items.items():
         row = None
         for name in names:
-            if name in df.index:
-                row = df.loc[name]
+            actual = index_lookup.get(_norm(name))
+            if actual is not None:
+                row = df.loc[actual]
                 break
         for col in list(df.columns)[:limit]:
             label = str(col.date()) if hasattr(col, "date") else str(col)
